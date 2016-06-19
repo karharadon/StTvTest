@@ -83,8 +83,8 @@ public class UItests extends BaseTest {
         loginPage.login(driver);
         wrestlerService.createWrestler(wrestler1);
         wrestlerService.findWrestler(wrestler1.getFullName());
-        //wrestlerService.uploadImage();
-       // wrestlerService.checkThatCorrectImageWasUploaded();
+        wrestlerService.uploadImage();
+        wrestlerService.checkThatCorrectImageWasUploaded(wrestler1);
         wrestlerService.deleteWrestler();
     }
 

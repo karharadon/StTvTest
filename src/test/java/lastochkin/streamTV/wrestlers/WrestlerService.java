@@ -8,7 +8,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Guice;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBuffer;
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 /**
  * Created by karhamint on 16.06.16.
@@ -39,9 +45,9 @@ public class WrestlerService {
     private final String photoUploaded = "No";
 
     File downloadedImage = null;
-    String expectedImage = System.getProperty("user.dir") + "/src/main/resources/expectedImage.png";
-    String imageForUploading = System.getProperty("user.dir") + "/src/main/resources/imageForUploading.jpg";
-    String attachmentForUploading = System.getProperty("user.dir") + "/src/main/resources/attachmentForTest.txt";
+    String expectedImage = System.getProperty("user.dir") + "/src/test/resources/expectedImage.png";
+    String imageForUploading = System.getProperty("user.dir") + "/src/test/resources/imageForUploading.jpg";
+    String attachmentForUploading = System.getProperty("user.dir") + "/src/test/resources/attachmentForTest.txt";
     String attachmentName = "attachmentForTest.txt";
 
     public ArrayList<String> errorsAfterCreating = new ArrayList<>();
@@ -240,12 +246,67 @@ public class WrestlerService {
     public void checkAttachmentDeletation(Wrestler wrestler1) {
         findWrestler(wrestler1.getFullName());
         mainPage.goToWrestlerProfile();
-        profilePage.waitWhenClickable(profilePage.deleteAttachment);
+        profilePage.waitWhenClickable(profilePage.deleteAttachment).click();
         profilePage.closeProfilePage();
         findWrestler(wrestler1.getFullName());
         mainPage.goToWrestlerProfile();
         assertThat("Attachment file was not deleted!", profilePage.NumberOfAttachments() == 0);
         System.out.println("Attachment file was deleted successfully");
         profilePage.closeProfilePage();
+    }
+
+
+    public void uploadImage() {
+        mainPage.goToWrestlerProfile();
+        profilePage.formForPhoto.sendKeys(imageForUploading);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        profilePage.closeProfilePage();
+    }
+
+    public void checkThatCorrectImageWasUploaded(Wrestler wrestler1) throws IOException {
+        boolean arePhotosEqual = imageIsEqual(expectedImage, downloadPhoto(wrestler1));
+        assertThat("Downloaded image is not as expected", arePhotosEqual, is(true));
+        System.out.println("Correct image was uploaded");
+        profilePage.closeProfilePage();
+        downloadedImage.deleteOnExit();
+    }
+
+    public boolean imageIsEqual(String expectedFile, String actualFile) throws IOException {
+
+        BufferedImage bufImExpected = ImageIO.read(new File(expectedFile));
+        DataBuffer datBufExpected = bufImExpected.getData().getDataBuffer();
+        int sizefileExp = datBufExpected.getSize();
+
+        BufferedImage bufImActual = ImageIO.read(new File(actualFile));
+        DataBuffer datBufActual = bufImActual.getData().getDataBuffer();
+        int sizeFileActual = datBufActual.getSize();
+
+        Boolean isEqual = true;
+        if (sizefileExp == sizeFileActual) {
+            for (int j = 0; j < sizefileExp; j++) {
+                if (datBufExpected.getElem(j) != datBufActual.getElem(j)) {
+                    isEqual = false;
+                    break;
+                }
+            }
+        } else {
+            isEqual = false;
+        }
+        return isEqual;
+
+    }
+    public String downloadPhoto(Wrestler wrestler1) throws IOException {
+        findWrestler(wrestler1.getFullName());
+        mainPage.goToWrestlerProfile();
+        String location = profilePage.image.getAttribute("src");
+        URL url = new URL(location);
+        BufferedImage bufImgOne = ImageIO.read(url);
+        downloadedImage = File.createTempFile("downloadedPhoto", ".png");
+        ImageIO.write(bufImgOne, "png", downloadedImage);
+        return downloadedImage.getAbsolutePath();
     }
 }

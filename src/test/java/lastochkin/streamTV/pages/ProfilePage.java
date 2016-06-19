@@ -124,7 +124,7 @@ public class ProfilePage extends AbstractPage {
     public
     WebElement image;
 
-    @FindBy(xpath = "//td/a[@class=\"ng-binding\"]")
+    @FindBy(xpath = "//td/a")
     public
     WebElement uploadedAttachment;
 
