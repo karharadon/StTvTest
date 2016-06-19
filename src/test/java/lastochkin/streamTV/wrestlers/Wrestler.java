@@ -135,6 +135,11 @@ public class Wrestler {
         this.card = card;
     }
 
+    public String getFullName(){
+        String fullName = getLastName() + " " + getFirstName()+ " " + getMiddleName();
+        return fullName;
+    }
+
     public Wrestler(String lastName, String firstName, String dateOfBirth, String middleName,
                     String regionFirst, String regionSecond, String fstFirst, String fstSecond,
                     String trainerFirst, String trainerSecond, String style, String age, String year, String card) {
@@ -205,7 +210,7 @@ public class Wrestler {
                 "Kolos", "MON", "ObiVan", "DartaMol", "FW", "Senior", "2017", "Produced");
 
         if (method.getName().equalsIgnoreCase("checkFilters"))
-            return new Object[][]{{wrestler1, wrestler2, wrestler3, wrestler4, wrestler5, wrestler6}};
+            return new Object[][]{{wrestler2, wrestler3, wrestler4, wrestler5, wrestler6}};
         else if (method.getName().equalsIgnoreCase("updateAndVerify"))
             return new Object[][]{{wrestler1, wrestler2}};
         else

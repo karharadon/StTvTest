@@ -42,7 +42,7 @@ public class FileComparationUtils {
     public void checkThatCorrectAttachmentWasUploaded() {
         assertThat("Uploaded file has unexpected name!", attachmentName.equals(uploadedAttachment.getText()));
         System.out.println("Correct file was uploaded.");
-        waitWhenClickableAndClick(closeProfilePage, waitWebElem);
+        waitWhenClickableAndClick(closePage, waitWebElem);
     }
  */
     public static boolean comparePdfs(String fileActual, String fileAbsolutePath) throws IOException {

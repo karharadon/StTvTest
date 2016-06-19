@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static lastochkin.streamTV.helpers.ConfigProperties.getProperty;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 public abstract class AbstractPage {
@@ -19,21 +20,9 @@ public abstract class AbstractPage {
 
     protected String className = this.getClass().getSimpleName();
 
+    private final int waitWebElem = Integer.parseInt(getProperty("waitWebElem"));
+
     WebDriver driver;
-
-    public void clearAndSendKeys(WebElement webElement, String text) {
-        webElement.clear();
-        webElement.sendKeys(text);
-    }
-
-    public void clearAndSendKeys(WebElement webElement, int text) {
-        webElement.clear();
-        webElement.sendKeys(Integer.toString(text));
-    }
-
-    public void waitWhenClickable(WebElement element, int timeSec) {
-        (new WebDriverWait(driver, timeSec)).until(ExpectedConditions.elementToBeClickable(element));
-    }
 
     public void selectFromDD(WebElement element, String text) {
         Select select = new Select(element);
@@ -51,9 +40,20 @@ public abstract class AbstractPage {
         wait.until(pageLoadCondition);
     }
 
-    public void captureScreen(String fileName) {
-        ScreenShot screenShot = new ScreenShot(driver);
-        screenShot.captureScreen(fileName);
+
+    public String getComboboxElement(WebElement webElement) {
+        Select comboBox = new Select(webElement);
+        return comboBox.getFirstSelectedOption().getText();
+    }
+
+    public void clearAndSendKeys(WebElement webElement, String text) {
+        webElement.clear();
+        webElement.sendKeys(text);
+    }
+
+    public WebElement waitWhenClickable(WebElement element) {
+        new WebDriverWait(driver, waitWebElem).until(ExpectedConditions.elementToBeClickable(element));
+        return element;
     }
 
     protected WebElement waitForElementPresence(By xpath, int timeoutInSeconds) {

@@ -17,10 +17,6 @@ import java.util.Date;
 @Guice(modules=GuiceTestModule.class)
 public class ScreenShot {
 
-    private DateFormat dateFormat = new SimpleDateFormat("_MM.dd.yyyy_HH.mm.ss");
-    private Date today = Calendar.getInstance().getTime();
-    private String sysDate = dateFormat.format(today);
-
     @Inject
     WebDriver driver;
 
@@ -29,10 +25,14 @@ public class ScreenShot {
         this.driver = driver;
     }
 
+    private DateFormat dateFormat = new SimpleDateFormat("_MM.dd.yyyy_HH.mm.ss");
+    private Date today = Calendar.getInstance().getTime();
+    private String sysDate = dateFormat.format(today);
+
     public void captureScreen(String fileName) {
         File scr = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
-            FileUtils.copyFile(scr, new File("ScreenShot\\" + fileName + sysDate + ".jpg"));
+            FileUtils.copyFile(scr, new File("ScreenShot\\" + fileName + sysDate + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
