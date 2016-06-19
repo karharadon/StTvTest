@@ -14,9 +14,6 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by karhamint on 16.06.16.
- */
 public class GuiceTestModule implements Module {
 
     private final String browser = System.getProperty("browser");
@@ -29,7 +26,6 @@ public class GuiceTestModule implements Module {
         binder.bind(MainPage.class);
         binder.bind(ScreenShot.class);
         binder.bind(WebDriver.class).toInstance(getWebDriver());
-
     }
 
     @Singleton

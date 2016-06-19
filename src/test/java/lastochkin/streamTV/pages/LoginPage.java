@@ -8,9 +8,6 @@ import org.openqa.selenium.support.PageFactory;
 
 import static lastochkin.streamTV.helpers.ConfigProperties.getProperty;
 
-/**
- * Created by karhamint on 16.06.16.
- */
 public class LoginPage extends AbstractPage {
 
     @Inject
@@ -19,20 +16,19 @@ public class LoginPage extends AbstractPage {
         PageFactory.initElements(driver, this);
     }
 
-
     public MainPage login(WebDriver driver) {
         open(driver);
         clearAndSendKeys(fieldLogin, getProperty("username"));
         clearAndSendKeys(fieldPassword, getProperty("password"));
         buttonLogin.click();
         System.out.println("Site was opened.");
-        return PageFactory.initElements(driver,MainPage.class);
-          }
+        return PageFactory.initElements(driver, MainPage.class);
+    }
 
     private LoginPage open(WebDriver driver) {
         driver.get(getProperty("url"));
         waitForPageLoad(driver);
-        return PageFactory.initElements(driver,LoginPage.class);
+        return PageFactory.initElements(driver, LoginPage.class);
     }
 
     @FindBy(xpath = "//div/input [1]")

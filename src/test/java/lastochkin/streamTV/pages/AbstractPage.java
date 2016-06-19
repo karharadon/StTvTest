@@ -1,7 +1,6 @@
 package lastochkin.streamTV.pages;
 
 import com.google.inject.Inject;
-import lastochkin.streamTV.helpers.ScreenShot;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,8 +16,6 @@ public abstract class AbstractPage {
     public AbstractPage(WebDriver driver) {
         this.driver = driver;
     }
-
-    protected String className = this.getClass().getSimpleName();
 
     private final int waitWebElem = Integer.parseInt(getProperty("waitWebElem"));
 
@@ -39,7 +36,6 @@ public abstract class AbstractPage {
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(pageLoadCondition);
     }
-
 
     public String getComboboxElement(WebElement webElement) {
         Select comboBox = new Select(webElement);

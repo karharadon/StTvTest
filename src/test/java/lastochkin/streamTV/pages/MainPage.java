@@ -10,9 +10,6 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-/**
- * Created by karhamint on 16.06.16.
- */
 public class MainPage extends AbstractPage {
 
     @Inject
@@ -20,9 +17,6 @@ public class MainPage extends AbstractPage {
         super(driver);
         PageFactory.initElements(driver, this);
     }
-
-
-
 
     public void clickButtonToCreateNewWrestler() {
         buttonCreateNewWrestler.click();
