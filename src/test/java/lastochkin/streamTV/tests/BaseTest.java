@@ -38,7 +38,7 @@ public abstract class BaseTest {
 
     }
 
-    @AfterMethod(enabled = false)
+    @AfterMethod(enabled = true)
     public void deleteWrestlersIfTestFailed(ITestResult tr) {
         System.out.println("...................AFTER METHOD......................");
 

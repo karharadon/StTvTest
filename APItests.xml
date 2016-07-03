@@ -7,7 +7,6 @@
       </packages> -->
 
         <classes>
-            <class name="lastochkin.streamTV.tests.UItests"/>
             <class name="lastochkin.streamTV.tests.APItests"/>
         </classes>
 
