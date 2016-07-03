@@ -10,11 +10,14 @@ import org.testng.annotations.*;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Severity;
 import ru.yandex.qatools.allure.model.SeverityLevel;
+
 import java.io.IOException;
 
 @Listeners(TestListener.class)
 @Guice(modules = GuiceTestModule.class)
 public class UItests extends BaseTest {
+
+    public static int wrestlersExist = 0;
 
     @Inject
     LoginPage loginPage;
@@ -25,7 +28,7 @@ public class UItests extends BaseTest {
     @Test(dataProviderClass = Wrestler.class, dataProvider = "wrestlers", priority = 1)
     @Description("Test create wrestler and delete")
     @Severity(SeverityLevel.BLOCKER)
-        public void createAndDelete(Wrestler wrestler1) {
+    public void createAndDelete(Wrestler wrestler1) {
         loginPage.login(driver);
         wrestlerService.createWrestler(wrestler1);
         wrestlerService.findWrestler(wrestler1.getFullName());
@@ -62,15 +65,15 @@ public class UItests extends BaseTest {
         wrestlerService.checkExeptions(wrestlerService.errorsAfterUpdating);
     }
 
-    @Test(dataProviderClass = Wrestler.class, dataProvider = "wrestlers", priority = 4)//TODO fix deletation
+    @Test(dataProviderClass = Wrestler.class, dataProvider = "wrestlers", priority = 4)
     @Description("Test creates six wrestlers verify that filters works correct")
     @Severity(SeverityLevel.BLOCKER)
-        public void checkFilters(Wrestler wrestler2, Wrestler wrestler3, Wrestler wrestler4,
+    public void checkFilters(Wrestler wrestler2, Wrestler wrestler3, Wrestler wrestler4,
                              Wrestler wrestler5, Wrestler wrestler6) {
         loginPage.login(driver);
         wrestlerService.createFewWrestlersForTestingFilters(wrestler2, wrestler3, wrestler4, wrestler5, wrestler6);
         wrestlerService.useAndCheckDifferentFilters(wrestler2);
-        wrestlerService.deleteWrestlersCreatedForTestingFilters();
+        wrestlerService.deleteWrestlersCreatedForTestingFilters(wrestler2);
     }
 
     @Test(dataProviderClass = Wrestler.class, dataProvider = "wrestlers", priority = 5)

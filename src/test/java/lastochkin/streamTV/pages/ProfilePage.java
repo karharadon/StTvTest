@@ -138,7 +138,7 @@ public class ProfilePage extends AbstractPage {
     }
 
     public void confirmWrestlerDeletation() {
-        deleteConfirm.click();
+        waitWhenClickable(deleteConfirm).click();
         PageFactory.initElements(driver, MainPage.class);
     }
 

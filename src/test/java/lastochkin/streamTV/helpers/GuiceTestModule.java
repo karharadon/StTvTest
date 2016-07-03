@@ -30,6 +30,7 @@ public class GuiceTestModule implements Module {
 
     @Singleton
     public WebDriver getWebDriver() {
+
         if (driver != null) {
             return driver;}
         else {
