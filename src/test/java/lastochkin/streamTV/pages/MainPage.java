@@ -1,6 +1,7 @@
 package lastochkin.streamTV.pages;
 
 import com.google.inject.Inject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -10,9 +11,6 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-/**
- * Created by karhamint on 16.06.16.
- */
 public class MainPage extends AbstractPage {
 
     @Inject
@@ -20,9 +18,6 @@ public class MainPage extends AbstractPage {
         super(driver);
         PageFactory.initElements(driver, this);
     }
-
-
-
 
     public void clickButtonToCreateNewWrestler() {
         buttonCreateNewWrestler.click();
@@ -37,6 +32,9 @@ public class MainPage extends AbstractPage {
 
     @FindBy(xpath = "//input[@ng-model=\"searchFor\"]")
     public WebElement fieldSearchFor;
+
+    public static final By SEARCH_BUTTON = By.cssSelector("div.form-group .btn-primary");
+
 
     @FindBy(xpath = "//button[@type=\"submit\"]")
     public WebElement buttonSearchFor;

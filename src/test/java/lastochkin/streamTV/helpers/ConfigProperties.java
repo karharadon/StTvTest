@@ -3,9 +3,6 @@ package lastochkin.streamTV.helpers;
 import java.io.IOException;
 import java.util.Properties;
 
-/**
- * Created by karhamint on 16.06.16.
- */
 public class ConfigProperties {
     private static final String PROP_FILE = "/config.properties";
 

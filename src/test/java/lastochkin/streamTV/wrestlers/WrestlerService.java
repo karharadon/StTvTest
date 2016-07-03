@@ -4,8 +4,10 @@ import com.google.inject.Inject;
 import lastochkin.streamTV.helpers.GuiceTestModule;
 import lastochkin.streamTV.pages.MainPage;
 import lastochkin.streamTV.pages.ProfilePage;
+import lastochkin.streamTV.tests.UItests;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.Guice;
 
 import javax.imageio.ImageIO;
@@ -23,10 +25,6 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-
-/**
- * Created by karhamint on 16.06.16.
- */
 
 @Guice(modules = GuiceTestModule.class)
 public class WrestlerService {
@@ -59,18 +57,22 @@ public class WrestlerService {
         profilePage.buttonSave.click();
         profilePage.closeProfilePage();
         System.out.println("Wrestler was created.");
+        UItests.wrestlersExist++;
     }
 
     public void findWrestler(String wrestlerFullName) {
-        mainPage.clearAndSendKeys(mainPage.fieldSearchFor, wrestlerFullName);
-        mainPage.waitWhenClickable(mainPage.buttonSearchFor).click();
+        mainPage.clearAndSendKeys(mainPage.waitWhenClickable(mainPage.fieldSearchFor), wrestlerFullName);
+        mainPage.waitWhenClickableAndClick(mainPage.buttonSearchFor);
     }
 
-    public void deleteWrestler() {
+    public MainPage deleteWrestler() {
+        mainPage.waitWhenClickableAndClick(mainPage.buttonSearchFor);
         mainPage.goToWrestlerProfile();
         profilePage.deleteWrestler.click();
         profilePage.confirmWrestlerDeletation();
         System.out.println("Wrestler was deleted.");
+        UItests.wrestlersExist--;
+        return PageFactory.initElements(driver, MainPage.class);
     }
 
     public void checkDeletion(String wrestlerFullName) {
@@ -81,7 +83,7 @@ public class WrestlerService {
 
     private boolean isExist(String wrestlerFullName) {
         mainPage.clearAndSendKeys(mainPage.fieldSearchFor, wrestlerFullName);
-        mainPage.waitWhenClickable(mainPage.buttonSearchFor).click();
+        mainPage.waitWhenClickableAndClick(mainPage.buttonSearchFor);
         return mainPage.fio.size() != 0;
     }
 
@@ -150,9 +152,10 @@ public class WrestlerService {
 
 
     public void checkExeptions(ArrayList<String> errors) {
-        if (errors.size() > 0)
+        if (errors.size() > 0) {
             errors.forEach(System.out::println);
-        throw new RuntimeException("Some fields contain wrong data!");
+            throw new RuntimeException("Some fields contain wrong data!");
+        }
     }
 
     public void updateWrestler(Wrestler wrestler1, Wrestler wrestler2) {
@@ -184,7 +187,7 @@ public class WrestlerService {
                 mainPage.number.size() <= Integer.parseInt(filterPerPage));
 
         mainPage.clearAndSendKeys(mainPage.fieldSearchFor, wrestler2.getFullName());
-        mainPage.waitWhenClickable(mainPage.buttonSearchFor).click();
+        mainPage.waitWhenClickableAndClick(mainPage.buttonSearchFor);
         if (mainPage.fio.size() != 5) throw new RuntimeException(exceptionText);
         checkFilter(mainPage.fio, wrestler2.getFullName());
 
@@ -219,8 +222,9 @@ public class WrestlerService {
         }
     }
 
-    public void deleteWrestlersCreatedForTestingFilters() {
+    public void deleteWrestlersCreatedForTestingFilters(Wrestler wrestler2) {
         for (int i = 0; i < 5; i++) {
+            findWrestler(wrestler2.getFullName());
             deleteWrestler();
         }
         System.out.println("All wrestlers created for filters were deleted");
@@ -255,15 +259,11 @@ public class WrestlerService {
         profilePage.closeProfilePage();
     }
 
-
+    //TODO Change Thread.sleep
     public void uploadImage() {
         mainPage.goToWrestlerProfile();
         profilePage.formForPhoto.sendKeys(imageForUploading);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        profilePage.waitWhenClickable(profilePage.image);
         profilePage.closeProfilePage();
     }
 
@@ -297,16 +297,25 @@ public class WrestlerService {
             isEqual = false;
         }
         return isEqual;
-
     }
+
     public String downloadPhoto(Wrestler wrestler1) throws IOException {
         findWrestler(wrestler1.getFullName());
         mainPage.goToWrestlerProfile();
-        String location = profilePage.image.getAttribute("src");
+        String location = profilePage.waitWhenClickable(profilePage.image).getAttribute("src");
         URL url = new URL(location);
         BufferedImage bufImgOne = ImageIO.read(url);
         downloadedImage = File.createTempFile("downloadedPhoto", ".png");
         ImageIO.write(bufImgOne, "png", downloadedImage);
         return downloadedImage.getAbsolutePath();
+    }
+
+    //TODO check this method
+    public void deleteWrestlerIfExist(Wrestler wrestler) {
+        if (isExist(wrestler.getFullName())) {
+            for (int i = 0; i < mainPage.fio.size(); i++) {
+                deleteWrestler();
+            }
+        }
     }
 }

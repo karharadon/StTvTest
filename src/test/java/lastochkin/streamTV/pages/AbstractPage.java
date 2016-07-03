@@ -1,7 +1,6 @@
 package lastochkin.streamTV.pages;
 
 import com.google.inject.Inject;
-import lastochkin.streamTV.helpers.ScreenShot;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,8 +16,6 @@ public abstract class AbstractPage {
     public AbstractPage(WebDriver driver) {
         this.driver = driver;
     }
-
-    protected String className = this.getClass().getSimpleName();
 
     private final int waitWebElem = Integer.parseInt(getProperty("waitWebElem"));
 
@@ -40,23 +37,52 @@ public abstract class AbstractPage {
         wait.until(pageLoadCondition);
     }
 
-
     public String getComboboxElement(WebElement webElement) {
         Select comboBox = new Select(webElement);
         return comboBox.getFirstSelectedOption().getText();
     }
 
     public void clearAndSendKeys(WebElement webElement, String text) {
-        webElement.clear();
+        waitWhenClickable(webElement).clear();
         webElement.sendKeys(text);
     }
 
+    public void waitWhenClickableAndClick(WebElement element) {
+        (new WebDriverWait(driver, waitWebElem)).until(ExpectedConditions.elementToBeClickable(element));
+        try {
+            element.click();
+        } catch (WebDriverException e) {
+            javaScriptHelpsClickOnButton(element);
+            e.getMessage();
+            e.getAdditionalInformation();
+            e.getBuildInformation();
+            e.getSystemInformation();
+            System.out.println("JavaScript helped click button");
+        }
+    }
+
+    protected void javaScriptHelpsClickOnButton(WebElement webElement) {
+        try {
+            ((JavascriptExecutor) driver).executeScript("var evt = document.createEvent('MouseEvents');"
+                    + "evt.initMouseEvent('click',true, " + "true, " + "window, 0, 0, 0, 0, 0, false, false, false," +
+                    " false, 0,null);" + "arguments[0].dispatchEvent(evt);", webElement);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Can not click on button. Java Script didn't help.");
+        }
+    }
+
     public WebElement waitWhenClickable(WebElement element) {
-        new WebDriverWait(driver, waitWebElem).until(ExpectedConditions.elementToBeClickable(element));
+        try {
+            new WebDriverWait(driver, waitWebElem).until(ExpectedConditions.elementToBeClickable(element));
+        } catch (Exception e){
+
+        }
+
         return element;
     }
 
-    protected WebElement waitForElementPresence(By xpath, int timeoutInSeconds) {
+    public WebElement waitForElementPresence(By xpath, int timeoutInSeconds) {
         new WebDriverWait(driver, timeoutInSeconds * 1000).until(presenceOfElementLocated(xpath));
         return driver.findElement(xpath);
     }
