@@ -96,18 +96,17 @@ public class WrestlerAPI {
 
         WrestlerAPI that = (WrestlerAPI) obj;
 
-        return (this.middleName.equals(that.middleName) ||
-                this.lastName.equals(that.lastName) ||
-                this.firstName.equals(that.firstName) ||
-                this.dateOfBirth.equals(that.dateOfBirth) ||
-                this.middleName.equals(that.middleName) ||
-                this.regionFirst.equals(that.regionFirst) ||
-                this.fstFirst.equals(that.fstFirst) ||
-                this.style.equals(that.style) ||
-                this.age.equals(that.age) ||
-                this.year.equals(that.year) ||
-                this.card.equals(that.card) ||
-                this.id.equals(that.id));
+        return (this.middleName.equals(that.middleName) &&
+                this.lastName.equals(that.lastName) &&
+                this.firstName.equals(that.firstName) &&
+                this.dateOfBirth.equals(that.dateOfBirth) &&
+                this.middleName.equals(that.middleName) &&
+                this.regionFirst.equals(that.regionFirst) &&
+                this.fstFirst.equals(that.fstFirst) &&
+                this.style.equals(that.style) &&
+                this.age.equals(that.age) &&
+                this.year.equals(that.year) &&
+                this.card.equals(that.card));
     }
 }
 

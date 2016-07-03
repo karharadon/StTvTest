@@ -19,7 +19,6 @@ import java.lang.reflect.Method;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class APItest {
-
     WrestlerServiceAPI api = new WrestlerServiceAPI();
     private String wrestlerId;
 
@@ -44,8 +43,8 @@ public class APItest {
                 actualWrestler.equals(wrestlerAPI2));
     }
 
-    @AfterMethod(enabled = false)
-    public void cleanDataBase(Method method) {
+    @AfterMethod(enabled = true)
+    public void cleanDataBase() {
         api.deletewrestlerThroughAPI(wrestlerId);
     }
 }
