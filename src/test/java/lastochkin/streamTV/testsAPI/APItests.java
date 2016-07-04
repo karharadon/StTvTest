@@ -1,14 +1,17 @@
-package lastochkin.streamTV.tests;
+package lastochkin.streamTV.testsAPI;
 
+import lastochkin.streamTV.helpers.TestListener;
 import lastochkin.streamTV.wrestlers.WrestlerAPI;
 import lastochkin.streamTV.wrestlers.WrestlerServiceAPI;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Severity;
 import ru.yandex.qatools.allure.model.SeverityLevel;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
+@Listeners(TestListener.class)
 public class APItests {
     WrestlerServiceAPI api = new WrestlerServiceAPI();
     private String wrestlerId;

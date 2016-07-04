@@ -43,7 +43,7 @@
                 <inherited>true</inherited>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>testNG.xml</suiteXmlFile>
+                        <suiteXmlFile>${suite}</suiteXmlFile>
                     </suiteXmlFiles>
                     <!-- Нужно для передачи браузера с консоли в системные переменные.Вариант 1:mvn test -Dbrowser=chrome -->
                     <!-- Need for passing browser from console to system variable. Variant 1: mvn test -Dbrowser=chrome -->

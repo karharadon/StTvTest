@@ -1,6 +1,6 @@
 package lastochkin.streamTV.helpers;
 
-import lastochkin.streamTV.tests.BaseTest;
+import lastochkin.streamTV.testsUI.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,7 @@ import ru.yandex.qatools.allure.annotations.Description;
 public class TestListener extends TestListenerAdapter {
 
     private Logger LOG = LoggerFactory.getLogger(this.getClass());
-    WebDriver driver;
+
 
     @Override
     public void onTestSuccess(ITestResult result) {
@@ -23,11 +23,9 @@ public class TestListener extends TestListenerAdapter {
     @Override
     @Description("Method makes screenshot if test will fail")
     public void onTestFailure(ITestResult result) {
-        this.driver = ((BaseTest) result.getInstance()).driver;
-        new ScreenShot(driver).captureScreen(result.getName());
 
         LOG.info("..................... Test:" + result.getName() + " - failed ...........................");
-        LOG.info("..................... LOOK SCREENSHOT IN THE ROOT OF PROJECT! ...........................");
+
     }
 
     @Override

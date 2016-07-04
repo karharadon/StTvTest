@@ -1,4 +1,4 @@
-package lastochkin.streamTV.tests;
+package lastochkin.streamTV.testsUI;
 
 import com.google.inject.Inject;
 import lastochkin.streamTV.helpers.GuiceTestModule;
