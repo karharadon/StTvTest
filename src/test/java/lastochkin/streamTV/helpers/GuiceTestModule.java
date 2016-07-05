@@ -6,7 +6,6 @@ import com.google.inject.Singleton;
 import lastochkin.streamTV.pages.LoginPage;
 import lastochkin.streamTV.pages.MainPage;
 import lastochkin.streamTV.pages.ProfilePage;
-import lastochkin.streamTV.tests.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -30,6 +29,7 @@ public class GuiceTestModule implements Module {
 
     @Singleton
     public WebDriver getWebDriver() {
+
         if (driver != null) {
             return driver;}
         else {
