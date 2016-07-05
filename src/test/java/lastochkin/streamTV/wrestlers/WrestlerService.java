@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import lastochkin.streamTV.helpers.GuiceTestModule;
 import lastochkin.streamTV.pages.MainPage;
 import lastochkin.streamTV.pages.ProfilePage;
-import lastochkin.streamTV.tests.UItests;
+import lastochkin.streamTV.testsUI.UItests;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;

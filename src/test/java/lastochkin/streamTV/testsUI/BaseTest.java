@@ -1,7 +1,8 @@
-package lastochkin.streamTV.tests;
+package lastochkin.streamTV.testsUI;
 
 import com.google.inject.Inject;
 import lastochkin.streamTV.helpers.GuiceTestModule;
+import lastochkin.streamTV.helpers.ScreenShot;
 import lastochkin.streamTV.pages.LoginPage;
 import lastochkin.streamTV.wrestlers.Wrestler;
 import lastochkin.streamTV.wrestlers.WrestlerService;
@@ -32,16 +33,25 @@ public abstract class BaseTest {
         }
     }
 
-    //TODO: Check wrestlers before suite
+    //TODO: Check wrestlers before suite dont exist/delete
     @BeforeSuite
     public void beforeSuite() {
 
     }
 
-    @AfterMethod(enabled = false)
+    @AfterMethod(enabled = true)
     public void deleteWrestlersIfTestFailed(ITestResult tr) {
         System.out.println("...................AFTER METHOD......................");
 
+        //make screenshot if failed
+        if(ITestResult.FAILURE == tr.getStatus()){
+            this.driver = ((BaseTest) tr.getInstance()).driver;
+            new ScreenShot(driver).captureScreen(tr.getName());
+            System.out.println("..................... LOOK SCREENSHOT IN THE ROOT OF PROJECT! .......................");
+        }
+
+
+        //delete wrestlers if test failed
         if (ITestResult.FAILURE == tr.getStatus() && UItests.wrestlersExist > 0) {
             Wrestler wrestler1 = (Wrestler) tr.getParameters()[0];
 
