@@ -37,6 +37,7 @@ public class GuiceTestModule implements Module {
                 driver = new ChromeDriver();
             }
             if (browser.equals("firefox")) {
+                System.setProperty("webdriver.gecko.driver", "/home/lastochkin/geckodriver");
                 driver = new FirefoxDriver();
             }
             if (browser.equals("internetExplorer")) {

@@ -33,9 +33,6 @@ public class MainPage extends AbstractPage {
     @FindBy(xpath = "//input[@ng-model=\"searchFor\"]")
     public WebElement fieldSearchFor;
 
-    public static final By SEARCH_BUTTON = By.cssSelector("div.form-group .btn-primary");
-
-
     @FindBy(xpath = "//button[@type=\"submit\"]")
     public WebElement buttonSearchFor;
 
