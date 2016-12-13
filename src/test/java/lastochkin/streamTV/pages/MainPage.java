@@ -13,10 +13,8 @@ import java.util.List;
 
 public class MainPage extends AbstractPage {
 
-    @Inject
     public MainPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);
     }
 
     public void clickButtonToCreateNewWrestler() {

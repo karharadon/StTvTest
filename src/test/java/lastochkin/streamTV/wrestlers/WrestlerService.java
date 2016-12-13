@@ -1,9 +1,10 @@
 package lastochkin.streamTV.wrestlers;
 
 import com.google.inject.Inject;
-import lastochkin.streamTV.helpers.GuiceTestModule;
+import lastochkin.streamTV.helpers.Driver;
 import lastochkin.streamTV.pages.MainPage;
 import lastochkin.streamTV.pages.ProfilePage;
+import lastochkin.streamTV.testsUI.BaseTest;
 import lastochkin.streamTV.testsUI.UItests;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,16 +27,14 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-@Guice(modules = GuiceTestModule.class)
-public class WrestlerService {
-    @Inject
-    MainPage mainPage;
 
-    @Inject
-    ProfilePage profilePage;
+public class WrestlerService extends Driver {
 
-    @Inject
-    WebDriver driver;
+
+    MainPage mainPage = PageFactory.initElements(getWebDriver(), MainPage.class);
+    ProfilePage profilePage = PageFactory.initElements(getWebDriver(), ProfilePage.class);
+
+
 
     private final DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private final Date today = Calendar.getInstance().getTime();
@@ -72,7 +71,7 @@ public class WrestlerService {
         profilePage.confirmWrestlerDeletation();
         System.out.println("Wrestler was deleted.");
         UItests.wrestlersExist--;
-        return PageFactory.initElements(driver, MainPage.class);
+        return PageFactory.initElements(getWebDriver(), MainPage.class);
     }
 
     public void checkDeletion(String wrestlerFullName) {

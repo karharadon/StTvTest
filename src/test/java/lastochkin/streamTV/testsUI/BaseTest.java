@@ -1,35 +1,35 @@
 package lastochkin.streamTV.testsUI;
 
-import com.google.inject.Inject;
-import lastochkin.streamTV.helpers.GuiceTestModule;
+import lastochkin.streamTV.helpers.ConfigProperties;
+import lastochkin.streamTV.helpers.Driver;
 import lastochkin.streamTV.helpers.ScreenShot;
 import lastochkin.streamTV.pages.LoginPage;
+import lastochkin.streamTV.pages.MainPage;
 import lastochkin.streamTV.wrestlers.Wrestler;
 import lastochkin.streamTV.wrestlers.WrestlerService;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Guice;
 
-@Guice(modules = GuiceTestModule.class)
-public abstract class BaseTest {
+import java.util.concurrent.TimeUnit;
 
-    @Inject
-    WrestlerService wrestlerService;
 
-    @Inject
-    LoginPage loginPage;
+public abstract class BaseTest extends Driver {
 
-    @Inject
-    public
-    WebDriver driver;
+
+    LoginPage loginPage = PageFactory.initElements(getWebDriver(), LoginPage.class);
+    WrestlerService wrestlerService = new WrestlerService();
 
     @AfterSuite(enabled = false)
     public void close() {
-        if (driver != null) {
-            driver.quit();
+        if (getWebDriver() != null) {
+            getWebDriver().quit();
         }
     }
 
@@ -41,12 +41,12 @@ public abstract class BaseTest {
 
     @AfterMethod(enabled = true)
     public void deleteWrestlersIfTestFailed(ITestResult tr) {
-        System.out.println("...................AFTER METHOD......................");
+        System.out.println("...............................AFTER METHOD......................");
 
         //make screenshot if failed
         if(ITestResult.FAILURE == tr.getStatus()){
-            this.driver = ((BaseTest) tr.getInstance()).driver;
-            new ScreenShot(driver).captureScreen(tr.getName());
+           // this.driver = ((BaseTest) tr.getInstance()).driver;
+            new ScreenShot(getWebDriver()).captureScreen(tr.getName());
             System.out.println("..................... LOOK SCREENSHOT IN THE ROOT OF PROJECT! .......................");
         }
 
@@ -55,7 +55,7 @@ public abstract class BaseTest {
         if (ITestResult.FAILURE == tr.getStatus() && UItests.wrestlersExist > 0) {
             Wrestler wrestler1 = (Wrestler) tr.getParameters()[0];
 
-            loginPage.login(driver);
+            loginPage.login(getWebDriver());
             if (UItests.wrestlersExist == 1) {
                 wrestlerService.deleteWrestlerIfExist(wrestler1);
             } else {

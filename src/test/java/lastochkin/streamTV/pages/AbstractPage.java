@@ -12,7 +12,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
 
 public abstract class AbstractPage {
 
-    @Inject
+
     public AbstractPage(WebDriver driver) {
         this.driver = driver;
     }

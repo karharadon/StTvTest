@@ -13,10 +13,8 @@ import org.openqa.selenium.support.PageFactory;
  */
 public class ProfilePage extends AbstractPage {
 
-    @Inject
     public ProfilePage(WebDriver driver){
         super(driver);
-        PageFactory.initElements(driver, this);
     }
 
     public void fillAllFields(Wrestler wrestler) {

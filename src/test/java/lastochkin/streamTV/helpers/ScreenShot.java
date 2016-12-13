@@ -14,13 +14,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-@Guice(modules=GuiceTestModule.class)
 public class ScreenShot {
 
-    @Inject
-    WebDriver driver;
 
-    @Inject
+    WebDriver driver = Driver.getWebDriver();
+
+
     public ScreenShot(WebDriver driver) {
         this.driver = driver;
     }

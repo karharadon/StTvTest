@@ -9,7 +9,7 @@ import org.testng.TestListenerAdapter;
 import org.testng.annotations.Guice;
 import ru.yandex.qatools.allure.annotations.Description;
 
-@Guice(modules = GuiceTestModule.class)
+
 public class TestListener extends TestListenerAdapter {
 
     private Logger LOG = LoggerFactory.getLogger(this.getClass());
