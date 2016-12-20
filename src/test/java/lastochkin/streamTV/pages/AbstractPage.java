@@ -76,7 +76,8 @@ public abstract class AbstractPage {
         try {
             new WebDriverWait(driver, waitWebElem).until(ExpectedConditions.elementToBeClickable(element));
         } catch (Exception e){
-
+            e.printStackTrace();
+            System.out.println("Can't click webelement" + element);
         }
 
         return element;
