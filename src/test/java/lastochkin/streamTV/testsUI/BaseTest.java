@@ -1,24 +1,17 @@
 package lastochkin.streamTV.testsUI;
 
-import lastochkin.streamTV.helpers.ConfigProperties;
+
 import lastochkin.streamTV.helpers.Driver;
 import lastochkin.streamTV.helpers.ScreenShot;
 import lastochkin.streamTV.pages.LoginPage;
-import lastochkin.streamTV.pages.MainPage;
+
 import lastochkin.streamTV.wrestlers.Wrestler;
 import lastochkin.streamTV.wrestlers.WrestlerService;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-
-import java.util.concurrent.TimeUnit;
-
 
 public abstract class BaseTest extends Driver {
 
@@ -33,7 +26,7 @@ public abstract class BaseTest extends Driver {
         }
     }
 
-    //TODO: Check wrestlers before suite dont exist/delete
+    //TODO: Check wrestlers before suite don't exist/delete
     @BeforeSuite
     public void beforeSuite() {
 
@@ -44,8 +37,8 @@ public abstract class BaseTest extends Driver {
         System.out.println("...............................AFTER METHOD......................");
 
         //make screenshot if failed
-        if(ITestResult.FAILURE == tr.getStatus()){
-           // this.driver = ((BaseTest) tr.getInstance()).driver;
+        if (ITestResult.FAILURE == tr.getStatus()) {
+            // this.driver = ((BaseTest) tr.getInstance()).driver;
             new ScreenShot(getWebDriver()).captureScreen(tr.getName());
             System.out.println("..................... LOOK SCREENSHOT IN THE ROOT OF PROJECT! .......................");
         }
@@ -68,7 +61,6 @@ public abstract class BaseTest extends Driver {
         System.out.println("Wrestlers created for tests don't exist.");
         UItests.wrestlersExist = 0;
         System.out.println(".....................................................");
-
     }
 
 }

@@ -14,15 +14,16 @@ public class Driver {
     private static WebDriver driver;
     private static final String browser = System.getProperty("browser");
 
-    public static WebDriver getWebDriver() {
+    protected static WebDriver getWebDriver() {
         if (driver != null) {
-            return driver;}
-        else {
+            return driver;
+        } else {
             if (browser.equals("chrome")) {
                 driver = new ChromeDriver();
             }
             if (browser.equals("firefox")) {
-                System.setProperty("webdriver.gecko.driver", "/home/lastochkin/geckodriver");
+                System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") +
+                        "/src/test/resources/drivers/geckodriver");
                 driver = new FirefoxDriver();
             }
             if (browser.equals("internetExplorer")) {
@@ -35,4 +36,5 @@ public class Driver {
             }
             return driver;
         }
-}}
+    }
+}
