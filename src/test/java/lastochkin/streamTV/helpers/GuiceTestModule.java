@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class GuiceTestModule implements Module {
 
     private final String browser = System.getProperty("browser");
-    WebDriver driver;
+    private WebDriver driver;
 
     @Override
     public void configure(Binder binder) {
@@ -28,7 +28,7 @@ public class GuiceTestModule implements Module {
     }
 
     @Singleton
-    public WebDriver getWebDriver() {
+    private WebDriver getWebDriver() {
 
         if (driver != null) {
             return driver;}

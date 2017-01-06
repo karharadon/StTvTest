@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @Listeners(TestListener.class)
 public class APItests {
-    WrestlerServiceAPI api = new WrestlerServiceAPI();
+    private WrestlerServiceAPI api = new WrestlerServiceAPI();
     private String wrestlerId;
 
     @Test(dataProviderClass = WrestlerAPI.class, dataProvider = "wrestlers")

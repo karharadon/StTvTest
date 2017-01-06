@@ -23,7 +23,6 @@ public abstract class BaseTest {
     LoginPage loginPage;
 
     @Inject
-    public
     WebDriver driver;
 
     @AfterSuite(enabled = false)

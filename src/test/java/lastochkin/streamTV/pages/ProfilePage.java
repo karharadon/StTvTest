@@ -8,9 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-/**
- * Created by karhamint on 16.06.16.
- */
 public class ProfilePage extends AbstractPage {
 
     @Inject
