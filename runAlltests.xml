@@ -4,12 +4,10 @@
     <test verbose="2" name="streamTV">
         <!--<packages>
           <package name="lastochkin.streamTV.testsUIUI"/>
-      </packages> -->
-
+        </packages> -->
         <classes>
             <class name="lastochkin.streamTV.testsUI.UItests"/>
             <class name="lastochkin.streamTV.testsAPI.APItests"/>
         </classes>
-
     </test>
 </suite>

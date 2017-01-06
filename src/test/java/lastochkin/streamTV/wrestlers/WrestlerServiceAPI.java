@@ -15,18 +15,16 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
 
 public class WrestlerServiceAPI {
+    private String updateUrl = ConfigProperties.getProperty("updateUrl");
+    private String username = ConfigProperties.getProperty("username");
+    private String password = ConfigProperties.getProperty("password");
+    private String loginUrl = ConfigProperties.getProperty("loginUrl");
+    private String sessionId = loginThroughAPI();
+    private String createUrl = ConfigProperties.getProperty("createUrl");
+    private String readUrl = ConfigProperties.getProperty("readUrl");
+    private String deleteUrl = ConfigProperties.getProperty("deleteUrl");
 
-    String searchUrl = ConfigProperties.getProperty("searchUrl");
-    String updateUrl = ConfigProperties.getProperty("updateUrl");
-    String username = ConfigProperties.getProperty("username");
-    String password = ConfigProperties.getProperty("password");
-    String loginUrl = ConfigProperties.getProperty("loginUrl");
-    String sessionId = loginThroughAPI();
-    String createUrl = ConfigProperties.getProperty("createUrl");
-    String readUrl = ConfigProperties.getProperty("readUrl");
-    String deleteUrl = ConfigProperties.getProperty("deleteUrl");
-
-    public String loginThroughAPI() {
+    private String loginThroughAPI() {
         Map<String, String> credentials = new HashMap<>();
         credentials.put("username", username);
         credentials.put("password", password);

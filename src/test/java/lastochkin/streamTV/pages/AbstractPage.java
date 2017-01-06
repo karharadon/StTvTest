@@ -1,6 +1,5 @@
 package lastochkin.streamTV.pages;
 
-import com.google.inject.Inject;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,14 +10,10 @@ import static lastochkin.streamTV.helpers.ConfigProperties.getProperty;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 public abstract class AbstractPage {
-
-
-    public AbstractPage(WebDriver driver) {
+    AbstractPage(WebDriver driver) {
         this.driver = driver;
     }
-
     private final int waitWebElem = Integer.parseInt(getProperty("waitWebElem"));
-
     WebDriver driver;
 
     public void selectFromDD(WebElement element, String text) {
@@ -61,7 +56,7 @@ public abstract class AbstractPage {
         }
     }
 
-    protected void javaScriptHelpsClickOnButton(WebElement webElement) {
+    private void javaScriptHelpsClickOnButton(WebElement webElement) {
         try {
             ((JavascriptExecutor) driver).executeScript("var evt = document.createEvent('MouseEvents');"
                     + "evt.initMouseEvent('click',true, " + "true, " + "window, 0, 0, 0, 0, 0, false, false, false," +
@@ -77,7 +72,7 @@ public abstract class AbstractPage {
             new WebDriverWait(driver, waitWebElem).until(ExpectedConditions.elementToBeClickable(element));
         } catch (Exception e){
             e.printStackTrace();
-            System.out.println("Can't click webelement" + element);
+            System.out.println("Can't click web element" + element);
         }
 
         return element;

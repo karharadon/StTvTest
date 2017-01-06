@@ -1,15 +1,11 @@
 package lastochkin.streamTV.wrestlers;
 
-import com.google.inject.Inject;
 import lastochkin.streamTV.helpers.Driver;
 import lastochkin.streamTV.pages.MainPage;
 import lastochkin.streamTV.pages.ProfilePage;
-import lastochkin.streamTV.testsUI.BaseTest;
 import lastochkin.streamTV.testsUI.UItests;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.Guice;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -27,25 +23,19 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-
 public class WrestlerService extends Driver {
-
-
-    MainPage mainPage = PageFactory.initElements(getWebDriver(), MainPage.class);
-    ProfilePage profilePage = PageFactory.initElements(getWebDriver(), ProfilePage.class);
-
-
+    private MainPage mainPage = PageFactory.initElements(getWebDriver(), MainPage.class);
+    private ProfilePage profilePage = PageFactory.initElements(getWebDriver(), ProfilePage.class);
 
     private final DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private final Date today = Calendar.getInstance().getTime();
     private final String sysDate = dateFormat.format(today);
     private final String photoUploaded = "No";
 
-    File downloadedImage = null;
-    String expectedImage = System.getProperty("user.dir") + "/src/test/resources/expectedImage.png";
-    String imageForUploading = System.getProperty("user.dir") + "/src/test/resources/imageForUploading.jpg";
-    String attachmentForUploading = System.getProperty("user.dir") + "/src/test/resources/attachmentForTest.txt";
-    String attachmentName = "attachmentForTest.txt";
+    private File downloadedImage = null;
+    private String expectedImage = System.getProperty("user.dir") + "/src/test/resources/expectedImage.png";
+    private String imageForUploading = System.getProperty("user.dir") + "/src/test/resources/imageForUploading.jpg";
+    private String attachmentForUploading = System.getProperty("user.dir") + "/src/test/resources/attachmentForTest.txt";
 
     public ArrayList<String> errorsAfterCreating = new ArrayList<>();
     public ArrayList<String> errorsAfterUpdating = new ArrayList<>();
@@ -117,7 +107,7 @@ public class WrestlerService extends Driver {
         System.out.println("Profile data were verified with code.");
     }
 
-    protected void assertSearchResulstWithCode(WebElement fact, String expected, ArrayList<String> err) {
+    private void assertSearchResulstWithCode(WebElement fact, String expected, ArrayList<String> err) {
         try {
             assert (fact.getText().equals(expected));
             System.out.println("Assertation search results with code data");
@@ -127,8 +117,7 @@ public class WrestlerService extends Driver {
         }
     }
 
-    //method used for drop fields
-    protected void assertProfileDataWithCode(WebElement fact, String expected, ArrayList<String> err) {
+    private void assertProfileDataWithCode(WebElement fact, String expected, ArrayList<String> err) {
         try {
             assert (mainPage.getComboboxElement(fact).equals(expected));
             System.out.println("Assertation profile data with code data");
@@ -139,7 +128,7 @@ public class WrestlerService extends Driver {
     }
 
     //method used for simple fields
-    protected void assertProfileDataWithCode2(WebElement fact, String expected, ArrayList<String> errors) {
+    private void assertProfileDataWithCode2(WebElement fact, String expected, ArrayList<String> errors) {
         try {
             assert (fact.getAttribute("value").equals(expected));
             System.out.println("Assertation profile data with code data");
@@ -148,7 +137,6 @@ public class WrestlerService extends Driver {
                     + " but was: " + fact.getAttribute("value"));
         }
     }
-
 
     public void checkExeptions(ArrayList<String> errors) {
         if (errors.size() > 0) {
@@ -213,7 +201,7 @@ public class WrestlerService extends Driver {
         if (mainPage.fio.size() != 5) throw new RuntimeException(exceptionText);
     }
 
-    public void checkFilter(List<WebElement> list, String filter) {
+    private void checkFilter(List<WebElement> list, String filter) {
         for (WebElement aList : list) {
             assertThat("The field " + filter + " expected " + filter + "but was: " + aList.getText(),
                     aList.getText().equals(filter));
@@ -230,7 +218,6 @@ public class WrestlerService extends Driver {
     }
 
     public void uploadAttachment() {
-
         mainPage.goToWrestlerProfile();
         profilePage.formForAttachment.sendKeys(attachmentForUploading);
         try {
@@ -241,6 +228,7 @@ public class WrestlerService extends Driver {
     }
 
     public void checkThatCorrectAttachmentWasUploaded() {
+        String attachmentName = "attachmentForTest.txt";
         assertThat("Uploaded file has unexpected name!", attachmentName.equals(profilePage.uploadedAttachment.getText()));
         System.out.println("Correct file was uploaded.");
         profilePage.closeProfilePage();
@@ -258,7 +246,6 @@ public class WrestlerService extends Driver {
         profilePage.closeProfilePage();
     }
 
-    //TODO Change Thread.sleep
     public void uploadImage() {
         mainPage.goToWrestlerProfile();
         profilePage.formForPhoto.sendKeys(imageForUploading);
@@ -274,8 +261,7 @@ public class WrestlerService extends Driver {
         downloadedImage.deleteOnExit();
     }
 
-    public boolean imageIsEqual(String expectedFile, String actualFile) throws IOException {
-
+    private boolean imageIsEqual(String expectedFile, String actualFile) throws IOException {
         BufferedImage bufImExpected = ImageIO.read(new File(expectedFile));
         DataBuffer datBufExpected = bufImExpected.getData().getDataBuffer();
         int sizefileExp = datBufExpected.getSize();
@@ -298,7 +284,7 @@ public class WrestlerService extends Driver {
         return isEqual;
     }
 
-    public String downloadPhoto(Wrestler wrestler1) throws IOException {
+    private String downloadPhoto(Wrestler wrestler1) throws IOException {
         findWrestler(wrestler1.getFullName());
         mainPage.goToWrestlerProfile();
         String location = profilePage.waitWhenClickable(profilePage.image).getAttribute("src");

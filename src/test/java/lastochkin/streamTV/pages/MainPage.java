@@ -1,7 +1,5 @@
 package lastochkin.streamTV.pages;
 
-import com.google.inject.Inject;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;

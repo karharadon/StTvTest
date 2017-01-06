@@ -40,9 +40,9 @@ public class WrestlerAPI {
     @SerializedName("id_wrestler")
     private String id;
 
-    public WrestlerAPI(String lastName, String firstName, String dateOfBirth, String middleName,
-                       String regionFirst, String fstFirst,
-                       String style, String age, String year, String card, String id) {
+    private WrestlerAPI(String lastName, String firstName, String dateOfBirth, String middleName,
+                        String regionFirst, String fstFirst,
+                        String style, String age, String year, String card, String id) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.dateOfBirth = dateOfBirth;

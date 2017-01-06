@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @Listeners(TestListener.class)
 public class APItests {
-    WrestlerServiceAPI api = new WrestlerServiceAPI();
+    private WrestlerServiceAPI api = new WrestlerServiceAPI();
     private String wrestlerId;
 
     @Test(dataProviderClass = WrestlerAPI.class, dataProvider = "wrestlers")
@@ -34,7 +34,7 @@ public class APItests {
         api.updateWrestlerThroughAPI(wrestlerAPI2);
         WrestlerAPI actualWrestler = api.readWrestlerThroughAPI(wrestlerId);
         assertThat("Wrestlers was created with mistakes! Expected: " + wrestlerAPI2 + ". But was:" + actualWrestler,
-                actualWrestler.equals(wrestlerAPI2));
+                actualWrestler.equals(wrestlerAPI2)); //TODO don't compare id!
     }
 
     @AfterMethod(enabled = true)

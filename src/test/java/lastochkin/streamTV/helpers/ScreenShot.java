@@ -1,11 +1,9 @@
 package lastochkin.streamTV.helpers;
 
-import com.google.inject.Inject;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.Guice;
 
 import java.io.File;
 import java.io.IOException;

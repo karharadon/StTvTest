@@ -4,9 +4,6 @@ import org.testng.annotations.DataProvider;
 
 import java.lang.reflect.Method;
 
-/**
- * Created by karhamint on 16.06.16.
- */
 public class Wrestler {
     public String lastName;
     public String firstName;
@@ -23,26 +20,25 @@ public class Wrestler {
     public String year;
     public String card;
 
-    public String getLastName() {
+    private String getLastName() {
         return lastName;
     }
 
-    public String getFirstName() {
+    private String getFirstName() {
         return firstName;
     }
 
-    public String getMiddleName() {
+    private String getMiddleName() {
         return middleName;
     }
 
     public String getFullName() {
-        String fullName = getLastName() + " " + getFirstName() + " " + getMiddleName();
-        return fullName;
+        return getLastName() + " " + getFirstName() + " " + getMiddleName();
     }
 
-    public Wrestler(String lastName, String firstName, String dateOfBirth, String middleName,
-                    String regionFirst, String regionSecond, String fstFirst, String fstSecond,
-                    String trainerFirst, String trainerSecond, String style, String age, String year, String card) {
+    private Wrestler(String lastName, String firstName, String dateOfBirth, String middleName,
+                     String regionFirst, String regionSecond, String fstFirst, String fstSecond,
+                     String trainerFirst, String trainerSecond, String style, String age, String year, String card) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.dateOfBirth = dateOfBirth;

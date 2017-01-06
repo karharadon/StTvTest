@@ -1,6 +1,5 @@
 package lastochkin.streamTV.pages;
 
-import com.google.inject.Inject;
 import lastochkin.streamTV.wrestlers.Wrestler;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,9 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-/**
- * Created by karhamint on 16.06.16.
- */
 public class ProfilePage extends AbstractPage {
 
     public ProfilePage(WebDriver driver){
