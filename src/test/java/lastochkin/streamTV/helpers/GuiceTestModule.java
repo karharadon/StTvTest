@@ -34,7 +34,6 @@ public class GuiceTestModule implements Module {
             return driver;}
         else {
             if (browser.equals("chrome")) {
-                System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"/drivers/chromedriver");
                 driver = new ChromeDriver();
             }
             if (browser.equals("firefox")) {
