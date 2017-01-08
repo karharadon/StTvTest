@@ -12,7 +12,7 @@
     <!-- Нужно для передачи браузера с консоли в системные переменные.Вариант 1:mvn test -Dbrowser=chrome
     В коде переменная browser вытягивается через String browser = System.getProperty("browser");-->
     <properties>
-        <browser>firefox</browser> <!--Значение по умолчанию. Если не через консоль и -Dbrowser не указывается-->
+        <browser>chrome</browser> <!--Значение по умолчанию. Если не через консоль и -Dbrowser не указывается-->
         <selenium.test.jvmargs><![CDATA[-Dbrowser=${browser}]]></selenium.test.jvmargs>
     </properties>
     <!-- .................................................................................................-->
@@ -110,6 +110,36 @@
                     <artifactId>junit</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>2.53.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>2.53.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-api</artifactId>
+            <version>3.0.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>3.0.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>3.0.1</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <!-- Second variant:profiles! mvn test -P local. Activate <browser.name>firefox</browser.name> -->

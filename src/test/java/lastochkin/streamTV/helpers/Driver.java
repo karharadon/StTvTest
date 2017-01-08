@@ -7,9 +7,6 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by lastochkin on 12/13/16.
- */
 public class Driver {
     private static WebDriver driver;
     private static final String browser = System.getProperty("browser");
@@ -19,11 +16,11 @@ public class Driver {
             return driver;
         } else {
             if (browser.equals("chrome")) {
+                System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"/drivers/chromedriver");
                 driver = new ChromeDriver();
             }
             if (browser.equals("firefox")) {
-                System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") +
-                        "/src/test/resources/drivers/geckodriver");
+                System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir")+"/drivers/geckodriver");
                 driver = new FirefoxDriver();
             }
             if (browser.equals("internetExplorer")) {
