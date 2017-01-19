@@ -1,6 +1,6 @@
 Information about project is in "AboutProject.jpg"
 
-There are 3 important branchs in the project: 1. guicefirefox41 - for old versions of firefox, without gecodriver. With library guice ( It provides support for dependency injection using annotations to configure Java objects.). 2. guicefirefox50 - for new versions of firefox, with gecodriver. With library guice. 3. killguice - the same, but without guice.
+There are 3 important branchs in the project: 1. guicefirefox41 - for old versions of firefox(>47), without gecodriver. With library guice ( It provides support for dependency injection using annotations to configure Java objects.). 2. guicefirefox50 - for new versions of firefox, with gecodriver. With library guice. 3. killguice - for new firefox versions, but without guice.
 
 How to setup & launch the automation framework: Please clone this repository to your local machine with installed software : Maven3 + Java + Firefox (Chrome, IE) + drivers for browsers.
 There are drivers in the "/drivers/". But they are for Linux_64. So if you have another system you should point path to your drivers in GuiceTestModule.class.
